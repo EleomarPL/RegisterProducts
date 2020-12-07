@@ -73,7 +73,6 @@ class ContentForm extends State<FormAdd> {
   }
 
   _insertDB() {
-    bool bandInsert = false;
     var task;
     Future<int> getResultId =
         widget.db.queryId(int.tryParse(controllerForm['id'].text));
@@ -129,7 +128,6 @@ class ContentForm extends State<FormAdd> {
             }
           else
             {
-              bandInsert = true,
               task = Task(
                   int.tryParse(controllerForm['id'].text),
                   controllerForm['name'].text,
