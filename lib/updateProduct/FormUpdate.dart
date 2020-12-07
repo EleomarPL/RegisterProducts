@@ -1,40 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:productos/DatabaseOperation/Task.dart';
+import 'package:productos/DatabaseOperation/databaseData.dart';
 
-import 'package:productos/databaseData.dart';
-
-// ignore: camel_case_types
-class UpdateProduct extends StatelessWidget {
-  final Map<String, dynamic> dataMainPage;
-  DatabaseData db;
-  Function callbackUpdate;
-  UpdateProduct({
-    Key key,
-    this.dataMainPage,
-    this.db,
-    this.callbackUpdate,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text('Actualizar producto'),
-          //backgroundColor: Colors.white,
-          //iconTheme: IconThemeData(color: Colors.black),
-        ),
-        body: SafeArea(
-          child:
-              ListView(padding: EdgeInsets.symmetric(vertical: 8.0), children: [
-            FormAdd(
-              dataArticle: dataMainPage,
-              db: db,
-              callbackUpdate: callbackUpdate,
-            ),
-          ]),
-        ));
-  }
-}
-
+// ignore: must_be_immutable
 class FormAdd extends StatefulWidget {
   final Map<String, dynamic> dataArticle;
   final DatabaseData db;
@@ -50,8 +18,28 @@ Widget _boxTextField(String placeholder, TextEditingController controllerText,
     TextFormField(
       controller: controllerText,
       validator: (value) {
-        if (value.isEmpty) {
-          return 'Rellena el campo';
+        if (typeData == TextInputType.number) {
+          if (value.isEmpty) {
+            return "Rellene el campo";
+          } else {
+            switch (placeholder) {
+              case 'Clave':
+              case 'Cantidad':
+                var valueData = int.tryParse(value);
+                return (value.length > 18)
+                    ? "Maximo 17 caracteres"
+                    : ((valueData == null) ? "Digite un numero entero" : null);
+                break;
+              case 'Precio':
+                var valueData = double.tryParse(value);
+                return (value.length > 18)
+                    ? "Maximo 17 caracteres"
+                    : ((valueData == null) ? "Digite un numero decimal" : null);
+                break;
+            }
+          }
+        } else {
+          return (value.trim().isEmpty) ? 'Rellena el campo' : null;
         }
         return null;
       },
@@ -77,7 +65,7 @@ class ContentForm extends State<FormAdd> {
   };
   void initState() {
     super.initState();
-    titleAvatar = "${widget.dataArticle['name'][0]}".toString();
+    titleAvatar = ("${widget.dataArticle['name'][0]}".toString()).toUpperCase();
     controllerForm['name'].text = "${widget.dataArticle['name']}";
     controllerForm['id']..text = "${widget.dataArticle['id']}";
     controllerForm['price']..text = "${widget.dataArticle['price']}";
@@ -97,11 +85,7 @@ class ContentForm extends State<FormAdd> {
 
   void _changedCircleAvatarName(String val) {
     setState(() {
-      if (controllerForm['name'].text != "") {
-        titleAvatar = controllerForm['name'].text[0].toUpperCase();
-      } else {
-        titleAvatar = "";
-      }
+      titleAvatar = (val != "") ? val[0].toUpperCase() : "";
     });
   }
 
@@ -112,10 +96,10 @@ class ContentForm extends State<FormAdd> {
   void _updateProduct(BuildContext context) {
     var taskUpdate = Task(
         widget.dataArticle['id'],
-        "nuevo nombre",
-        widget.dataArticle['price'],
-        widget.dataArticle['detailarticle'],
-        widget.dataArticle['amount']);
+        (controllerForm['name'].text).trim(),
+        double.tryParse(controllerForm['price'].text),
+        controllerForm['detailarticle'].text,
+        int.tryParse(controllerForm['amount'].text));
     widget.callbackUpdate(taskUpdate);
     Navigator.pop(context);
   }
@@ -148,16 +132,15 @@ class ContentForm extends State<FormAdd> {
                 TextFormField(
                   controller: controllerForm['name'],
                   onChanged: (String val) => {
-                    if (val.length <= 1)
+                    if ((val.trim()).length <= 1)
                       {
-                        _changedCircleAvatarName(val),
+                        _changedCircleAvatarName(val.trim()),
                       }
                   },
                   validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Rellena los campos';
-                    }
-                    return null;
+                    return (value.trim().isEmpty)
+                        ? 'Rellena el campo'
+                        : ((value.length > 29) ? "Maximo 29 caracteres" : null);
                   },
                   style: TextStyle(
                     fontSize: 20,
@@ -204,8 +187,8 @@ class ContentForm extends State<FormAdd> {
                   onPressed: () => {
                     if (_formKey.currentState.validate())
                       {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data'))),
+                        //Scaffold.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Processing Data'))),
                         _updateProduct(context),
                       }
                   },
