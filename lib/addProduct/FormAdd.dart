@@ -46,7 +46,7 @@ Widget _boxTextField(String placeholder, TextEditingController controllerText,
       style: TextStyle(
         fontSize: 20,
       ),
-      decoration: InputDecoration(hintText: placeholder),
+      decoration: InputDecoration(labelText: placeholder),
       textAlign: TextAlign.center,
       keyboardType: typeData,
     );
@@ -138,16 +138,6 @@ class ContentForm extends State<FormAdd> {
               Navigator.pop(context),
             }
         });
-    //if (bandInsert) {
-    /*var task = Task(
-          int.tryParse(controllerForm['id'].text),
-          controllerForm['name'].text,
-          double.tryParse(controllerForm['price'].text),
-          controllerForm['detailarticle'].text,
-          int.tryParse(controllerForm['amount'].text));
-      widget.callbackInsert(task);
-      Navigator.pop(context);*/
-    //}
   }
 
   @override
@@ -161,7 +151,7 @@ class ContentForm extends State<FormAdd> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                    color: Colors.blue[900],
+                    color: Colors.purple[900],
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       maxRadius: 50.0,
@@ -191,7 +181,7 @@ class ContentForm extends State<FormAdd> {
                   style: TextStyle(
                     fontSize: 20,
                   ),
-                  decoration: InputDecoration(hintText: "Nombre"),
+                  decoration: InputDecoration(labelText: "Nombre"),
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.text,
                 ),
@@ -217,7 +207,7 @@ class ContentForm extends State<FormAdd> {
                   height: 10,
                 ),
                 RaisedButton(
-                  color: Colors.purple[900],
+                  color: Colors.purple[700],
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -239,7 +229,7 @@ class ContentForm extends State<FormAdd> {
                   },
                 ),
                 RaisedButton(
-                  color: Colors.pink[700],
+                  color: Colors.pink,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(

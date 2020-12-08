@@ -19,6 +19,8 @@ class AddProduct extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           title: Text('Agregar producto'),
+          backgroundColor: Colors.purple,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: SafeArea(
           child:

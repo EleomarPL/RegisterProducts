@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Productos',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -62,6 +62,8 @@ class _mainComponent extends State<mainPage> {
   Widget _getAppBarNotSearching(String title) {
     return AppBar(
       title: Text(title),
+      backgroundColor: Colors.purple,
+      iconTheme: IconThemeData(color: Colors.white),
       actions: <Widget>[
         IconButton(
             icon: Icon(Icons.search),
@@ -75,6 +77,8 @@ class _mainComponent extends State<mainPage> {
   Widget _getAppBarSearching() {
     return AppBar(
       automaticallyImplyLeading: false,
+      backgroundColor: Colors.purple,
+      iconTheme: IconThemeData(color: Colors.white),
       leading: IconButton(
           icon: Icon(Icons.clear),
           onPressed: () {
@@ -101,7 +105,7 @@ class _mainComponent extends State<mainPage> {
           decoration: InputDecoration(
             focusColor: Colors.white,
             focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue)),
+                borderSide: BorderSide(color: Colors.white)),
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue)),
           ),
@@ -212,6 +216,7 @@ class _mainComponent extends State<mainPage> {
         onPressed: () {
           Navigator.of(context).push(_handleNavigationPressed());
         },
+        backgroundColor: Colors.pink[600],
         tooltip: 'Agregar producto',
         child: Icon(Icons.add),
       ),

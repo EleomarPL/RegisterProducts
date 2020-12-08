@@ -5,7 +5,6 @@ import 'package:productos/DatabaseOperation/Task.dart';
 
 class DatabaseData {
   Database _db;
-  static int resultQueryId = 0;
   initDB() async {
     _db = await openDatabase(
       path.join(await getDatabasesPath(), 'created_products_database.db'),
@@ -29,11 +28,9 @@ class DatabaseData {
   }
 
   Future<int> queryId(int id) async {
-    resultQueryId = Sqflite.firstIntValue(
+    int resultQueryId = Sqflite.firstIntValue(
         await _db.rawQuery('SELECT * FROM products WHERE id = ?', ['$id']));
     return resultQueryId;
-    //print(resultQuery);
-    //return (resultQuery);
   }
 
   Future<void> updateProduct(Task task) async {

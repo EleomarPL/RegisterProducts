@@ -46,7 +46,7 @@ Widget _boxTextField(String placeholder, TextEditingController controllerText,
       style: TextStyle(
         fontSize: 20,
       ),
-      decoration: InputDecoration(hintText: placeholder),
+      decoration: InputDecoration(labelText: placeholder),
       textAlign: TextAlign.center,
       keyboardType: typeData,
       enabled: isEnabled,
@@ -115,7 +115,7 @@ class ContentForm extends State<FormAdd> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                    color: Colors.blue[900],
+                    color: Colors.purple[900],
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       maxRadius: 50.0,
@@ -146,7 +146,7 @@ class ContentForm extends State<FormAdd> {
                     fontSize: 20,
                   ),
                   decoration: const InputDecoration(
-                    hintText: "Nombre",
+                    labelText: "Nombre",
                   ),
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.text,
@@ -170,7 +170,7 @@ class ContentForm extends State<FormAdd> {
                   height: 10,
                 ),
                 RaisedButton(
-                  color: Colors.purple[900],
+                  color: Colors.purple[700],
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -187,14 +187,12 @@ class ContentForm extends State<FormAdd> {
                   onPressed: () => {
                     if (_formKey.currentState.validate())
                       {
-                        //Scaffold.of(context).showSnackBar(
-                        //   SnackBar(content: Text('Processing Data'))),
                         _updateProduct(context),
                       }
                   },
                 ),
                 RaisedButton(
-                  color: Colors.pink[700],
+                  color: Colors.pink,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(

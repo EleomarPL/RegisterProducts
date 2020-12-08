@@ -27,8 +27,8 @@ class _UpdateProductState extends State<UpdateProduct> {
         appBar: AppBar(
           elevation: 0,
           title: Text('Actualizar producto'),
-          //backgroundColor: Colors.white,
-          //iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.purple,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: SafeArea(
           child:
