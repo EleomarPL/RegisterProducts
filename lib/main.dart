@@ -107,7 +107,7 @@ class _mainComponent extends State<mainPage> {
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white)),
             enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue)),
+                borderSide: BorderSide(color: Colors.white)),
           ),
         ),
       ),
@@ -171,7 +171,7 @@ class _mainComponent extends State<mainPage> {
       future: db.getSpecifiedList(valNew),
       initialData: List<Task>(),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data.length != 0) {
           return ListView(
             padding: EdgeInsets.all(15.0),
             children: [
@@ -186,7 +186,9 @@ class _mainComponent extends State<mainPage> {
             ],
           );
         } else {
-          return Center(child: Text("Agrega datos"));
+          return (_isSearching)
+              ? Center(child: Text("Sin resultados"))
+              : Center(child: Text("Agregue un producto"));
         }
       },
     );

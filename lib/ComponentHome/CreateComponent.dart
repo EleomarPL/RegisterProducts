@@ -28,6 +28,9 @@ class _CreateComponentState extends State<CreateComponent> {
           fontSize: fontsize,
           fontWeight: fontWeight,
         ),
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
       );
   Widget dividerColumnText() => Divider(
         color: Colors.blue[300],
@@ -71,9 +74,10 @@ class _CreateComponentState extends State<CreateComponent> {
                 child: Column(
                   children: [
                     Center(
-                      child: Text(
-                          "¿Esta seguro que desea eliminar este producto?"),
-                    ),
+                        child: Text(
+                      "¿Esta seguro que desea eliminar este producto?",
+                      textAlign: TextAlign.center,
+                    )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

@@ -14,7 +14,7 @@ class FormAdd extends StatefulWidget {
 }
 
 Widget _boxTextField(String placeholder, TextEditingController controllerText,
-        TextInputType typeData, DatabaseData db) =>
+        TextInputType typeData, DatabaseData db, int maxlines) =>
     TextFormField(
       controller: controllerText,
       validator: (value) {
@@ -46,6 +46,8 @@ Widget _boxTextField(String placeholder, TextEditingController controllerText,
       style: TextStyle(
         fontSize: 20,
       ),
+      minLines: 1,
+      maxLines: maxlines,
       decoration: InputDecoration(labelText: placeholder),
       textAlign: TextAlign.center,
       keyboardType: typeData,
@@ -161,7 +163,7 @@ class ContentForm extends State<FormAdd> {
                       ),
                     )),
                 _boxTextField("Clave", controllerForm['id'],
-                    TextInputType.number, widget.db),
+                    TextInputType.number, widget.db, 1),
                 SizedBox(
                   height: 10,
                 ),
@@ -189,7 +191,7 @@ class ContentForm extends State<FormAdd> {
                   height: 10,
                 ),
                 _boxTextField("Precio", controllerForm['price'],
-                    TextInputType.number, widget.db),
+                    TextInputType.number, widget.db, 1),
                 SizedBox(
                   height: 10,
                 ),
@@ -197,12 +199,13 @@ class ContentForm extends State<FormAdd> {
                     "Detalle del producto",
                     controllerForm['detailarticle'],
                     TextInputType.text,
-                    widget.db),
+                    widget.db,
+                    5),
                 SizedBox(
                   height: 10,
                 ),
                 _boxTextField("Cantidad", controllerForm['amount'],
-                    TextInputType.number, widget.db),
+                    TextInputType.number, widget.db, 1),
                 SizedBox(
                   height: 10,
                 ),
