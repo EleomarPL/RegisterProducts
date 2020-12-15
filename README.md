@@ -16,7 +16,7 @@ Estas instrucciones te permitirán tener una copia del proyecto en funcionamient
 
 ### Pre-requisitos 📋
 * SDK de Flutter 
-* Algún emulador, aunque también se podría de depurar en un dispositivo Android físico (opcional)
+* Algún emulador, aunque también se podría depurar en un dispositivo Android físico (opcional)
 * De preferencia un IDE o editor de código para la mejor manipulación del proyecto (Android Studio y Visual Studio Code son los más usados y conocidos)
 
 _**NOTA**: Android Studio provee emuladores de dispositivos Android por lo que su uso seria eficiente_

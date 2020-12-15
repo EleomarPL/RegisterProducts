@@ -15,7 +15,6 @@ class DatabaseData {
       },
       version: 1,
     );
-    print('Database inicializada');
   }
 
   Future<void> insertProduct(Task task) async {

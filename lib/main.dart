@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos/Debouncer/Debouncer.dart';
 
 import 'package:productos/addProduct/addProduct.dart';
 import 'package:productos/DatabaseOperation/databaseData.dart';
@@ -75,6 +76,7 @@ class _mainComponent extends State<mainPage> {
   }
 
   Widget _getAppBarSearching() {
+    final debouncer = Debouncer();
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Colors.purple,
@@ -90,8 +92,10 @@ class _mainComponent extends State<mainPage> {
           controller: ContentSearch,
           onChanged: (String val) {
             if (_isSearching) {
-              setState(() {
-                valNew = val;
+              debouncer.run(() {
+                setState(() {
+                  valNew = val;
+                });
               });
             }
           },
