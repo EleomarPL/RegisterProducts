@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:productos/Debouncer/Debouncer.dart';
+import 'Debouncer/Debouncer.dart';
 
-import 'package:productos/addProduct/addProduct.dart';
-import 'package:productos/DatabaseOperation/databaseData.dart';
-import 'package:productos/ComponentHome/CreateComponent.dart';
-import 'package:productos/DatabaseOperation/Task.dart';
+import 'addProduct/addProduct.dart';
+import 'DatabaseOperation/databaseData.dart';
+import 'ComponentHome/CreateComponent.dart';
+import 'DatabaseOperation/Task.dart';
 
 void main() {
   runApp(MyApp());

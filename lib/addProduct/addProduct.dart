@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:productos/DatabaseOperation/databaseData.dart';
+import '../DatabaseOperation/databaseData.dart';
 
-import 'package:productos/addProduct/FormAdd.dart';
+import 'FormAdd.dart';
 
 // ignore: must_be_immutable
 class AddProduct extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:productos/DatabaseOperation/databaseData.dart';
-import 'package:productos/updateProduct/updateProduct.dart';
+import '../DatabaseOperation/databaseData.dart';
+import '../updateProduct/updateProduct.dart';
 
 // ignore: must_be_immutable
 class CreateComponent extends StatefulWidget {

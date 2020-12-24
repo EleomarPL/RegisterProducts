@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:productos/DatabaseOperation/Task.dart';
-import 'package:productos/DatabaseOperation/databaseData.dart';
+import '../DatabaseOperation/Task.dart';
+import '../DatabaseOperation/databaseData.dart';
 
 int resultId;
 

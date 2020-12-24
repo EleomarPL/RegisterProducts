@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart' as path;
-import 'package:productos/DatabaseOperation/Task.dart';
+import 'Task.dart';
 
 class DatabaseData {
   Database _db;
