@@ -10,7 +10,6 @@ void main() {
   runApp(MyApp());
 }
 
-//this is the principal class
 
 class MyApp extends StatelessWidget {
   @override
