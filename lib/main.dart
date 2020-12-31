@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'ReusableComponents/Transition.dart';
+import 'AddUpdate/AddProduct.dart';
 import 'Debouncer/Debouncer.dart';
+import 'DatabaseOperation/Product.dart';
 
-import 'addProduct/addProduct.dart';
-import 'DatabaseOperation/databaseData.dart';
+import 'DatabaseOperation/DatabaseData.dart';
 import 'ComponentHome/CreateComponent.dart';
-import 'DatabaseOperation/Task.dart';
 
 void main() {
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -17,47 +17,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Productos',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: mainPage(),
+      home: MainPage(),
     );
   }
 }
 
 // ignore: camel_case_types
-class mainPage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _mainComponent createState() => _mainComponent();
+  _MainComponent createState() => _MainComponent();
 }
 
 // ignore: camel_case_types
-class _mainComponent extends State<mainPage> {
+class _MainComponent extends State<MainPage> {
   DatabaseData db = DatabaseData();
   bool _isSearching = false;
   String valNew = "";
-  // ignore: non_constant_identifier_names
-  TextEditingController ContentSearch = TextEditingController();
-  Route _handleNavigationPressed() {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(
-        milliseconds: 500,
-      ),
-      pageBuilder: (context, animation, secondaryAnimation) => AddProduct(
-        db: db,
-        callbackInsert: callbackInsert,
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var tween = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
-            .chain(CurveTween(curve: Curves.ease));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
 
   Widget _getAppBarNotSearching(String title) {
     return AppBar(
@@ -88,7 +66,6 @@ class _mainComponent extends State<mainPage> {
       title: Padding(
         padding: const EdgeInsets.only(bottom: 0, right: 10),
         child: TextField(
-          controller: ContentSearch,
           onChanged: (String val) {
             if (_isSearching) {
               debouncer.run(() {
@@ -120,7 +97,6 @@ class _mainComponent extends State<mainPage> {
   void _startSearching() {
     setState(() {
       _isSearching = true;
-      ContentSearch.clear();
     });
   }
 
@@ -128,7 +104,6 @@ class _mainComponent extends State<mainPage> {
     setState(() {
       _isSearching = false;
       valNew = "";
-      ContentSearch.clear();
     });
   }
 
@@ -149,7 +124,7 @@ class _mainComponent extends State<mainPage> {
     });
   }
 
-  void callbackInsert(Task dataInsert) {
+  void callbackInsert(Product dataInsert) {
     setState(() {
       db.insertProduct(dataInsert);
       if (_isSearching) {
@@ -159,7 +134,7 @@ class _mainComponent extends State<mainPage> {
     });
   }
 
-  void callbackUpdate(Task dataUpdate) {
+  void callbackUpdate(Product dataUpdate) {
     setState(() {
       db.updateProduct(dataUpdate);
       if (_isSearching) {
@@ -172,13 +147,13 @@ class _mainComponent extends State<mainPage> {
   _showList(BuildContext context) {
     return FutureBuilder(
       future: db.getSpecifiedList(valNew),
-      initialData: List<Task>(),
-      builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+      initialData: List<Product>(),
+      builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
         if (snapshot.hasData && snapshot.data.length != 0) {
           return ListView(
             padding: EdgeInsets.all(15.0),
             children: [
-              for (Task task in snapshot.data)
+              for (Product task in snapshot.data)
                 CreateComponent(
                   dataComponent: _convertToMap(
                       task.id, task.name, task.price, task.detail, task.amount),
@@ -219,7 +194,14 @@ class _mainComponent extends State<mainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(_handleNavigationPressed());
+          Navigator.of(context).push(
+            Transition.handleNavigationPressed(
+              AddProduct(
+                db: db,
+                callbackInsert: callbackInsert,
+              ),
+            ),
+          );
         },
         backgroundColor: Colors.pink[600],
         tooltip: 'Agregar producto',

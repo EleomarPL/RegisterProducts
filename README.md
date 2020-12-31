@@ -26,9 +26,9 @@ _**NOTA**: Android Studio provee emuladores de dispositivos Android por lo que s
 * Mediante algún IDE o editor de código abrir el proyecto y ejecutar mediante un emulador o incluso emular mediante un dispositivo físico (modo depuración). Esto para depurar la aplicación, aunque para tener un release incluye más pasos que puedes consultar en la documentación de Flutter
 
 ## Visualización de la aplicación movil en un dispositivo fisico
-![principalAgregar](https://user-images.githubusercontent.com/69527151/101958323-b7517900-3bc8-11eb-8a7b-7c0ed8f01466.PNG)
-![vistaActualizar](https://user-images.githubusercontent.com/69527151/101958395-d6e8a180-3bc8-11eb-839b-913605b1cd6d.PNG)
-![buscarEliminar](https://user-images.githubusercontent.com/69527151/101958399-d94afb80-3bc8-11eb-875d-1590c11c05bc.PNG)
+![principalAgregar](https://user-images.githubusercontent.com/69527151/103416875-18c49200-4b4e-11eb-89bf-c82185376fd8.PNG)
+![vistaActualizar](https://user-images.githubusercontent.com/69527151/103417066-d2bbfe00-4b4e-11eb-9d72-814171f3448e.PNG)
+![buscarEliminar](https://user-images.githubusercontent.com/69527151/103416990-8a9cdb80-4b4e-11eb-8ab8-4234f30193ee.PNG)
 
 ## Autores ✒️
 - **Pedro Lorenzo Eleomar**

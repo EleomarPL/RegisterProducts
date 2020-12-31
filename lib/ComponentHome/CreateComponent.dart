@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../DatabaseOperation/databaseData.dart';
-import '../updateProduct/updateProduct.dart';
+import '../AddUpdate/UpdateProduct.dart';
+import '../ReusableComponents/Transition.dart';
+import '../DatabaseOperation/DatabaseData.dart';
 
-// ignore: must_be_immutable
 class CreateComponent extends StatefulWidget {
   final Map<String, dynamic> dataComponent;
   final DatabaseData db;
-  Function callbackDelete;
-  Function callbackUpdate;
+  final Function callbackDelete;
+  final Function callbackUpdate;
   CreateComponent(
       {Key key,
       this.dataComponent,
@@ -32,32 +32,11 @@ class _CreateComponentState extends State<CreateComponent> {
         overflow: TextOverflow.ellipsis,
         softWrap: false,
       );
-  Widget dividerColumnText() => Divider(
+  Widget _dividerColumnText() => Divider(
         color: Colors.blue[300],
         height: 10,
         thickness: 2,
       );
-  Route _handleNavigationPressedUpdate() {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(
-        milliseconds: 500,
-      ),
-      pageBuilder: (context, animation, secondaryAnimation) => UpdateProduct(
-          dataMainPage: widget.dataComponent,
-          db: widget.db,
-          callbackUpdate: widget.callbackUpdate),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var tween = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
-            .chain(CurveTween(curve: Curves.ease));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   _updateComponent(BuildContext context) {
     widget.callbackDelete(widget.dataComponent['id']);
     Navigator.pop(context);
@@ -68,6 +47,7 @@ class _CreateComponentState extends State<CreateComponent> {
         context: context,
         builder: (context) {
           return SimpleDialog(
+            backgroundColor: Colors.black,
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
@@ -77,12 +57,13 @@ class _CreateComponentState extends State<CreateComponent> {
                         child: Text(
                       "¿Esta seguro que desea eliminar este producto?",
                       textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
                     )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         RaisedButton(
-                          color: Colors.blue[400],
+                          color: Colors.purple[900],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                               15.0,
@@ -98,7 +79,7 @@ class _CreateComponentState extends State<CreateComponent> {
                           onPressed: () => {_updateComponent(context)},
                         ),
                         RaisedButton(
-                          color: Colors.blue[400],
+                          color: Colors.purple[900],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                               15.0,
@@ -131,7 +112,10 @@ class _CreateComponentState extends State<CreateComponent> {
       children: [
         GestureDetector(
           child: Container(
-            color: Colors.purple[900],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.purple[900],
+            ),
             child: Column(children: [
               SizedBox(
                 height: 15,
@@ -156,7 +140,10 @@ class _CreateComponentState extends State<CreateComponent> {
                   Flexible(
                     flex: 15,
                     child: Container(
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.white,
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Column(
@@ -182,18 +169,18 @@ class _CreateComponentState extends State<CreateComponent> {
                                 ),
                               ],
                             ),
-                            dividerColumnText(),
+                            _dividerColumnText(),
                             _customText(" ${widget.dataComponent['name']}",
                                 FontWeight.bold, 18),
-                            dividerColumnText(),
+                            _dividerColumnText(),
                             _customText(" \$${widget.dataComponent['price']}",
                                 FontWeight.normal, 17),
-                            dividerColumnText(),
+                            _dividerColumnText(),
                             _customText(
                                 " Detalle: ${widget.dataComponent['detailarticle']}",
                                 FontWeight.normal,
                                 17),
-                            dividerColumnText(),
+                            _dividerColumnText(),
                             _customText(
                                 " Cantidad: ${widget.dataComponent['amount']}",
                                 FontWeight.normal,
@@ -215,7 +202,15 @@ class _CreateComponentState extends State<CreateComponent> {
             ]),
           ),
           onTap: () {
-            Navigator.of(context).push(_handleNavigationPressedUpdate());
+            Navigator.of(context).push(
+              Transition.handleNavigationPressed(
+                UpdateProduct(
+                  dataMainPage: widget.dataComponent,
+                  db: widget.db,
+                  callbackUpdate: widget.callbackUpdate,
+                ),
+              ),
+            );
           },
         ),
         SizedBox(

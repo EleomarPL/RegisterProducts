@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart' as path;
-import 'Task.dart';
+import 'Product.dart';
 
 class DatabaseData {
   Database _db;
@@ -10,17 +10,22 @@ class DatabaseData {
       path.join(await getDatabasesPath(), 'created_products_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE products(id INTEGER PRIMARY KEY, name VARCHAR(30) NOT NULL,price REAL NOT NULL,detail TEXT NOT NULL,amount INTEGER NOT NULL);",
+          'CREATE TABLE products('
+          'id INTEGER PRIMARY KEY,'
+          'name VARCHAR(30) NOT NULL,'
+          'price REAL NOT NULL,'
+          'detail TEXT NOT NULL,'
+          'amount INTEGER NOT NULL);',
         );
       },
       version: 1,
     );
   }
 
-  Future<void> insertProduct(Task task) async {
+  Future<void> insertProduct(Product product) async {
     int idRegister = await _db.insert(
       'products',
-      task.toMap(),
+      product.toMap(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
     return idRegister;
@@ -32,12 +37,12 @@ class DatabaseData {
     return resultQueryId;
   }
 
-  Future<void> updateProduct(Task task) async {
+  Future<void> updateProduct(Product product) async {
     await _db.update(
       'products',
-      task.toMap(),
+      product.toMap(),
       where: "id = ?",
-      whereArgs: [task.id],
+      whereArgs: [product.id],
     );
   }
 
@@ -45,10 +50,10 @@ class DatabaseData {
     await _db.rawDelete('DELETE FROM products WHERE id = ?', [id]);
   }
 
-  Future<List<Task>> getSpecifiedList(String val) async {
+  Future<List<Product>> getSpecifiedList(String val) async {
     List<Map<String, dynamic>> results = await _db.rawQuery(
         'SELECT * FROM products WHERE name LIKE ? OR id LIKE ?',
         ['%$val%', '%$val%']);
-    return results.map((map) => Task.fromMap(map)).toList();
+    return results.map((map) => Product.fromMap(map)).toList();
   }
 }

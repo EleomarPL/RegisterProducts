@@ -1,11 +1,11 @@
-class Task {
+class Product {
   int id;
   String name;
   double price;
   String detail;
   int amount;
 
-  Task(this.id, this.name, this.price, this.detail, this.amount);
+  Product({this.id, this.name, this.price, this.detail, this.amount});
   Map<String, dynamic> toMap() {
     return {
       "id": id,
@@ -16,7 +16,7 @@ class Task {
     };
   }
 
-  Task.fromMap(Map<String, dynamic> map) {
+  Product.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     name = map['name'];
     price = map['price'];
